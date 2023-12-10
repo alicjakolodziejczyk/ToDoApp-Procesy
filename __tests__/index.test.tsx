@@ -17,4 +17,10 @@ describe('Home', () => {
     expect(input).toBeInTheDocument();
   })
 
+  it("renders a button with text", () => {
+    render(<Home />)
+    const button = screen.getByRole("button", { name: /Add/i });
+    expect(button).toBeInTheDocument();
+  })
+
 })
