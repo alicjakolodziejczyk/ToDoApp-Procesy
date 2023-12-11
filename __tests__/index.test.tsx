@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Home from '@/pages/index'
 
 describe('Home', () => {
@@ -28,7 +28,7 @@ describe('Home', () => {
 
     const inputElement = screen.getByPlaceholderText("Your todo here");
     const buttonElement = screen.getByRole("button", { name: /Add/i });
-    const todoText = "Learn Next.js";
+    const todoText = "Drink coffe";
     fireEvent.change(inputElement, { target: { value: todoText } });
     fireEvent.click(buttonElement);
 
@@ -50,5 +50,23 @@ describe('Home', () => {
     todoTexts.forEach((todoText) => {
       expect(screen.getByText(todoText)).toBeInTheDocument();
     });
+  });
+  it("deletes a todo", async () => {
+    render(<Home />);
+    const inputElement = screen.getByPlaceholderText("Your todo here");
+    const buttonElement = screen.getByRole("button", { name: /Add/i });
+    const todoText = "Drink coffe";
+    await waitFor(() => {
+      fireEvent.change(inputElement, { target: { value: todoText } });
+      fireEvent.click(buttonElement);
+    });
+
+    // Check if the todo is added to the list
+    await waitFor(() => {
+      expect(screen.getByText(todoText)).toBeInTheDocument();
+    });
+    // Delete the todo
+    const deleteButton = screen.getByRole("button", { name: /Delete/i });
+    fireEvent.click(deleteButton);
   });
 })
