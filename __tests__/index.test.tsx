@@ -79,5 +79,36 @@ describe('Home', () => {
       expect(screen.queryByText(todoText)).toBeNull();
     });
   });
+
+  it('changes todo status', async () => {
+    render(<Home />);
+    const inputElement = screen.getByPlaceholderText("Your todo here");
+    const buttonElement = screen.getByRole("button", { name: /Add/i });
+    const todoText = "Run tests";
+    
+    // Add a todo
+    await waitFor(() => {
+      fireEvent.change(inputElement, { target: { value: todoText } });
+      fireEvent.click(buttonElement);
+    });
+  
+    // Check if the todo is added to the list
+    await waitFor(() => {
+      expect(screen.getByText(todoText)).toBeInTheDocument();
+    });
+  
+    // Change the todo status
+    const liElement = screen.getByText(todoText).closest("li"); // Find the parent li element
+    if (liElement === null) { throw new Error("liElement is null"); }
+    const checkbox = within(liElement).getByRole("checkbox") as HTMLInputElement; // Assert the type
+    fireEvent.click(checkbox);
+
+    // Check if the todo is removed from the list
+    await waitFor(() => {
+      expect(checkbox.checked).toBe(true);
+    });
+
+  });
+  
   
 })
