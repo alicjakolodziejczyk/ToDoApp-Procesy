@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import Home from '@/pages/index'
 
 describe('Home', () => {
@@ -55,18 +55,29 @@ describe('Home', () => {
     render(<Home />);
     const inputElement = screen.getByPlaceholderText("Your todo here");
     const buttonElement = screen.getByRole("button", { name: /Add/i });
-    const todoText = "Drink coffe";
+    const todoText = "Prep a project";
+    
+    // Add a todo
     await waitFor(() => {
       fireEvent.change(inputElement, { target: { value: todoText } });
       fireEvent.click(buttonElement);
     });
-
+  
     // Check if the todo is added to the list
     await waitFor(() => {
       expect(screen.getByText(todoText)).toBeInTheDocument();
     });
+  
     // Delete the todo
-    const deleteButton = screen.getByRole("button", { name: /Delete/i });
+    const liElement = screen.getByText(todoText).closest("li"); // Find the parent li element
+    if(liElement === null) { throw new Error("liElement is null") }
+    const deleteButton = within(liElement).getByRole("button", { name: /Delete/i }); // Find the delete button within the li
     fireEvent.click(deleteButton);
+  
+    // Check if the todo is removed from the list
+    await waitFor(() => {
+      expect(screen.queryByText(todoText)).toBeNull();
+    });
   });
+  
 })
