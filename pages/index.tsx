@@ -18,6 +18,9 @@ export default function index() {
 
 
   const addTodo = () => {
+    if (inputValue.trim() === "") {
+      alert("Task cannot be empty!")
+      return;} // prevent adding empty todo
     setTodos([...todos, inputValue]);
     setInputValue("");
   }
