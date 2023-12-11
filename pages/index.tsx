@@ -41,12 +41,12 @@ export default function index() {
         <input className='border-2 border-gray-400 rounded-md p-2 w-full' type='text' placeholder='Your todo here' value={inputValue} onChange={handleInputChange}/>
         <button onClick={addTodo} className='border-2 border-gray-400 rounded-md p-2 w-16 mx-2'>Add</button>
       </div>
-        <ul className="flex flex-col justify-start items-start">
+        <ul className="flex flex-col justify-start items-start mt-8">
         {todos.map((todo, index) => (
           <li className="w-screen flex justify-center m-2" key={index}>
-            <div className="flex justify-around w-4/6 border border-x-black">
-              {todo}
-              <button className="border border-black bg-red-300" onClick={() => deleteTodo(index)}>
+            <div className="flex justify-end w-1/2 border-b border-gray-300 p-2 items-center">
+              <div className='mr-auto text-2xl items-center'><input className='mx-3 w-6 h-6' type='checkbox'></input>{todo}</div>
+              <button className="border rounded-xl px-4 py-2 bg-red-500" onClick={() => deleteTodo(index)}>
                 Delete
               </button>{" "}
             </div>
