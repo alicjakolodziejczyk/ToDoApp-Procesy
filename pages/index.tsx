@@ -40,6 +40,7 @@ export default function index() {
       <div className='flex flex-row w-1/2'>
         <input className='border-2 border-gray-400 rounded-md p-2 w-full' type='text' placeholder='Your todo here' value={inputValue} onChange={handleInputChange}/>
         <button onClick={addTodo} className='border-2 border-gray-400 rounded-md p-2 w-16 mx-2'>Add</button>
+      </div>
         <ul className="flex flex-col justify-start items-start">
         {todos.map((todo, index) => (
           <li className="w-screen flex justify-center m-2" key={index}>
@@ -52,7 +53,7 @@ export default function index() {
           </li>
         ))}
       </ul>
-      </div> 
+       
       
     </div>
   )
