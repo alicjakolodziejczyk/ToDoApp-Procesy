@@ -1,10 +1,7 @@
-# Next.js + Jest
+# Next.js + Jest To do App
 
-This example shows how to configure Jest to work with Next.js.
-
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript. This example also shows how to use Jest with the App Router and React Server Components.
-
-> **Note:** Since tests can be co-located alongside other files inside the App Router, we have placed those tests in `app/` to demonstrate this behavior (which is different than `pages/`). You can still place all tests in `__tests__` if you prefer.
+I've written this app with my friend as a final project for our Software Development Processes class.
+We've written a simple one-paged next.js to-do app, and we've written test cases for it.
 
 ## Deploy your own
 
